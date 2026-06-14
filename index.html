@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>최규식 · 타이항공</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #4A1D96;
+      --purple-mid: #6D28D9;
+      --gold: #D4AF37;
+      --gold-light: #F5E27A;
+      --white: #FFFFFF;
+      --gray-100: #F6F6F8;
+      --gray-200: #EBEBEF;
+      --gray-400: #AEAABF;
+      --gray-600: #6B5B8B;
+      --text: #1A1230;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Noto Sans KR', 'Inter', sans-serif;
+      background: #F4F4F6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Card ── */
+    .card-wrapper {
+      width: 100%;
+      max-width: 460px;
+      padding: 24px;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.06),
+        0 12px 40px rgba(0,0,0,0.10);
+      overflow: hidden;
+      cursor: default;
+    }
+
+    /* ── Left purple stripe ── */
+    .card-stripe {
+      width: 5px;
+      flex-shrink: 0;
+      background: var(--purple);
+    }
+
+    /* ── Main content ── */
+    .card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .card-header {
+      padding: 32px 36px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      position: relative;
+    }
+
+    .name {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(74,29,150,0.08);
+      color: var(--purple);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .dept {
+      font-size: 13px;
+      color: var(--gray-600);
+      font-weight: 400;
+    }
+
+    /* ── Share button ── */
+    .share-btn {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      background: none;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 11px;
+      color: var(--gray-600);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .share-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple);
+      background: rgba(74,29,150,0.04);
+    }
+
+    .share-btn svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    /* ── Company section ── */
+    .card-company {
+      padding: 20px 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .company-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .company-logo svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .company-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .company-sub {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 2px;
+    }
+
+    /* ── Contacts ── */
+    .card-contacts {
+      padding: 20px 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin: 0 -10px;
+      transition: background 0.15s ease;
+    }
+
+    .contact-item:hover {
+      background: var(--gray-100);
+    }
+
+    .contact-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon.phone { background: rgba(16,185,129,0.09); }
+    .contact-icon.email { background: rgba(74,29,150,0.07); }
+
+    .contact-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .contact-label {
+      font-size: 10.5px;
+      color: var(--gray-400);
+      font-weight: 400;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .contact-value {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Footer ── */
+    .card-footer {
+      padding: 13px 36px;
+      background: var(--gray-100);
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .card-footer-text {
+      font-size: 10.5px;
+      color: var(--gray-400);
+      letter-spacing: 0.2px;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--text);
+      color: var(--white);
+      padding: 9px 18px;
+      border-radius: 30px;
+      font-size: 12.5px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      white-space: nowrap;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 520px) {
+      .card-header  { padding: 24px 24px 20px; }
+      .card-company { padding: 16px 24px; }
+      .card-contacts { padding: 16px 24px 22px; }
+      .card-footer  { padding: 11px 24px; }
+      .name { font-size: 22px; }
+      .share-btn { top: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-wrapper">
+  <div class="card">
+
+    <!-- Left purple stripe -->
+    <div class="card-stripe"></div>
+
+    <!-- Content -->
+    <div class="card-content">
+
+      <!-- Header -->
+      <div class="card-header">
+        <div class="name">최규식</div>
+        <div class="title-row">
+          <span class="badge">차장</span>
+          <span class="dept">총무부</span>
+        </div>
+        <button class="share-btn" onclick="copyContact()">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M13 7h2a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2"/>
+            <path d="M10 3v9M7 6l3-3 3 3"/>
+          </svg>
+          공유
+        </button>
+      </div>
+
+      <!-- Company -->
+      <div class="card-company">
+        <div class="company-logo">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4C8 4 5 7 5 11c0 2.8 1.4 5.2 3.5 6.6L12 20l3.5-2.4C17.6 16.2 19 13.8 19 11c0-4-3-7-7-7z" fill="rgba(255,255,255,0.15)"/>
+            <path d="M9 10.5c1.5-.8 3-.8 4.5 0L15 8.5C13.2 7.3 10.8 7.3 9 8.5V10.5z" fill="var(--gold-light)"/>
+            <path d="M12 13.5l-3.5-2V14l3.5 2.5 3.5-2.5v-2.5l-3.5 2z" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <div class="company-name">Thai Airways International</div>
+          <div class="company-sub">타이항공 · 총무부 차장</div>
+        </div>
+      </div>
+
+      <!-- Contacts -->
+      <div class="card-contacts">
+        <a class="contact-item" href="tel:010-9364-4883">
+          <div class="contact-icon phone">
+            <svg viewBox="0 0 20 20" fill="none" stroke="#10B981" stroke-width="1.8">
+              <path d="M3.5 6.5a11 11 0 0 0 10 10l2-2-2.5-2.5-1.5 1a7 7 0 0 1-4.5-4.5l1-1.5L5.5 4.5l-2 2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">010-9364-4883</div>
+          </div>
+        </a>
+
+        <a class="contact-item" href="mailto:choi_gs@thaiairways.co.kr">
+          <div class="contact-icon email">
+            <svg viewBox="0 0 20 20" fill="none" stroke="#6D28D9" stroke-width="1.8">
+              <rect x="2" y="4" width="16" height="12" rx="2"/>
+              <path d="M2 6l8 5 8-5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">choi_gs@thaiairways.co.kr</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Footer -->
+      <div class="card-footer">
+        <span class="card-footer-text">Thai Airways International Public Co., Ltd.</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">연락처가 복사되었습니다</div>
+
+<script>
+  function copyContact() {
+    const text = `최규식 차장 | 타이항공 총무부\n전화: 010-9364-4883\n이메일: choi_gs@thaiairways.co.kr`;
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    });
+  }
+</script>
+</body>
+</html>
