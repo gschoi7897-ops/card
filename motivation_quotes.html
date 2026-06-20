@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>동기부여 명언</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      font-family: 'Noto Sans KR', sans-serif;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 700px;
+      padding: 20px;
+    }
+
+    .counter {
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 48px 52px 48px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(100, 150, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .quote-mark {
+      display: none;
+    }
+
+    .quote-text {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 21px;
+      line-height: 1.85;
+      color: #f0f4ff;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      margin-bottom: 36px;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #64a0ff, #a78bfa);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    .author {
+      font-size: 15px;
+      font-weight: 500;
+      color: #a0b8ff;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .author::before {
+      content: '— ';
+      color: rgba(160, 184, 255, 0.5);
+    }
+
+    .comment {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(200, 210, 240, 0.65);
+      line-height: 1.7;
+      border-left: 2px solid rgba(100, 160, 255, 0.3);
+      padding-left: 14px;
+    }
+
+    .btn-area {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-radius: 50px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-prev {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.5);
+      padding: 12px 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-prev:hover {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      transform: translateX(-3px);
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #4a7fff, #7c5cfc);
+      color: #fff;
+      padding: 12px 40px;
+      box-shadow: 0 8px 24px rgba(74, 127, 255, 0.35);
+    }
+
+    .btn-next:hover {
+      transform: translateX(3px);
+      box-shadow: 0 10px 30px rgba(74, 127, 255, 0.5);
+    }
+
+    .btn-next:active {
+      transform: scale(0.97);
+    }
+
+    .fade-enter {
+      animation: fadeIn 0.45s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      margin-top: 28px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4a7fff, #a78bfa);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <div class="counter" id="counter">1 / 15</div>
+  <div class="card" id="card">
+    <p class="quote-text" id="quote-text"></p>
+    <div class="divider"></div>
+    <p class="author" id="author"></p>
+    <p class="comment" id="comment"></p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+  <div class="btn-area">
+    <button class="btn-prev" onclick="prevQuote()">← 이전</button>
+    <button class="btn-next" onclick="nextQuote()">다음 명언 →</button>
+  </div>
+</div>
+
+<script>
+  const quotes = [
+    {
+      text: "위대한 일을 하는 유일한 방법은 자신이 하는 일을 사랑하는 것이다.",
+      author: "스티브 잡스",
+      comment: "하고 싶은 일 해야 잘하는 거야. 억지로 하는 거 티 다 나거든? 나는 알아."
+    },
+    {
+      text: "모든 어려움 한가운데에는 반드시 기회가 놓여 있다.",
+      author: "알베르트 아인슈타인",
+      comment: "힘들다고 징징대기 전에 눈 똑바로 뜨고 봐. 기회가 뻔히 있는데 못 보는 거잖아, 진짜."
+    },
+    {
+      text: "아무리 느리게 가더라도 멈추지 않는 한 괜찮다.",
+      author: "공자",
+      comment: "느려도 되는데 멈추면 그건 진짜 끝난 거야. 거북이도 결승선은 통과한다고, 알겠어?"
+    },
+    {
+      text: "할 수 있다고 믿어라. 그러면 이미 절반은 이룬 것이다.",
+      author: "시어도어 루스벨트",
+      comment: "믿음도 없이 뭘 시작해? 반도 못 가고 포기하는 사람들 보면 딱 그 꼴이야, 딱."
+    },
+    {
+      text: "미래는 자신의 꿈이 아름답다고 믿는 사람들의 것이다.",
+      author: "엘리너 루스벨트",
+      comment: "꿈을 우습게 보면 그 미래는 그냥 남 얘기 되는 거야. 내 꿈인데 내가 무시하면 누가 봐줘?"
+    },
+    {
+      text: "성공은 끝이 아니고, 실패는 치명적이지 않다. 중요한 것은 계속할 용기다.",
+      author: "윈스턴 처칠",
+      comment: "성공했다고 다 끝난 거 아니고, 실패했다고 죽는 거 아니야. 계속 가는 게 답이라고."
+    },
+    {
+      text: "새로운 목표를 세우거나 새로운 꿈을 꾸기에 너무 늦은 나이란 없다.",
+      author: "C.S. 루이스",
+      comment: "나이 탓하면서 포기하는 거 솔직히 좀 쪽팔린 거야. 나이가 뭔 상관이야, 하면 되지."
+    },
+    {
+      text: "목표를 달성함으로써 얻는 것보다, 그 과정에서 어떤 사람이 되느냐가 더 중요하다.",
+      author: "지그 지글러",
+      comment: "결과만 쫓으면 정작 중요한 걸 놓치는 거야. 목표가 나를 키우는 거지, 내가 목표 따라가는 게 아니라고."
+    },
+    {
+      text: "내일의 실현을 가로막는 유일한 한계는 오늘 우리가 품은 의심이다.",
+      author: "프랭클린 루스벨트",
+      comment: "남이 막는 게 아니야. 스스로 의심하면서 발목 잡는 거거든. 진짜 적은 내 안에 있어."
+    },
+    {
+      text: "당신이 하는 일이 차이를 만든다고 생각하며 행동하라. 실제로 그렇다.",
+      author: "윌리엄 제임스",
+      comment: "내 행동이 무슨 의미가 있냐고? 다 영향 있어, 다. 작은 거라도 무시하지 마."
+    },
+    {
+      text: "언제나 햇빛을 향해 얼굴을 들어라. 그러면 그림자는 뒤로 사라진다.",
+      author: "월트 휘트먼",
+      comment: "밝은 쪽 보면 그림자는 알아서 뒤로 빠지거든. 이게 진리야, 어렵지도 않잖아."
+    },
+    {
+      text: "해내기 전까지는 언제나 불가능해 보인다.",
+      author: "넬슨 만델라",
+      comment: "불가능해 보이는 거 당연한 거야, 해보기 전엔. 해놓고 나면 별거 아닌 거거든, 항상."
+    },
+    {
+      text: "앞서 나가는 비결은 시작하는 것이다.",
+      author: "마크 트웨인",
+      comment: "준비 완벽하게 하려다 평생 못 시작하는 거야. 그냥 시작해. 이게 다야, 진짜로."
+    },
+    {
+      text: "고난은 종종 평범한 사람들을 비범한 운명으로 이끄는 준비 과정이다.",
+      author: "C.S. 루이스",
+      comment: "지금 힘든 거? 그게 다 준비 과정이야. 고생 안 하고 특별해진 사람 나는 못 봤어."
+    },
+    {
+      text: "시도하지 않은 슈팅은 100% 빗나간다.",
+      author: "웨인 그레츠키",
+      comment: "안 쏘면 100% 못 맞히는 거잖아. 이건 초등학생도 아는 거 아냐? 일단 쏴봐."
+    }
+  ];
+
+  let current = 0;
+
+  function renderQuote(animate = true) {
+    const q = quotes[current];
+    const card = document.getElementById('card');
+    const content = card.querySelector('.quote-text').parentElement;
+
+    document.getElementById('quote-text').textContent = `"${q.text}"`;
+    document.getElementById('author').textContent = q.author;
+    document.getElementById('comment').textContent = q.comment;
+    document.getElementById('counter').textContent = `${current + 1} / ${quotes.length}`;
+    document.getElementById('progress-fill').style.width = `${((current + 1) / quotes.length) * 100}%`;
+
+    if (animate) {
+      card.classList.remove('fade-enter');
+      void card.offsetWidth;
+      card.classList.add('fade-enter');
+    }
+  }
+
+  function nextQuote() {
+    current = (current + 1) % quotes.length;
+    renderQuote();
+  }
+
+  function prevQuote() {
+    current = (current - 1 + quotes.length) % quotes.length;
+    renderQuote();
+  }
+
+  function createStars() {
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      star.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        top: ${Math.random() * 100}%;
+        left: ${Math.random() * 100}%;
+        animation-delay: ${Math.random() * 3}s;
+        animation-duration: ${2 + Math.random() * 3}s;
+        opacity: ${Math.random() * 0.6 + 0.2};
+      `;
+      container.appendChild(star);
+    }
+  }
+
+  createStars();
+  renderQuote(false);
+</script>
+</body>
+</html>
